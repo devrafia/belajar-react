@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Belajar React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+
+      function Header({ name }) {
+        return <h1>Belajar React {name ? name : "WPU"} 🚀</h1>;
+      }
+
+      function BtnCounter({ tButton, operator, condition }) {
+        return (
+          <button onClick={operator} disabled={condition}>
+            {tButton}
+          </button>
+        );
+      }
+
+      function Counter() {
+        const [count, setCount] = React.useState(0);
+        function add() {
+          setCount(count + 1);
+        }
+
+        function min() {
+          setCount(count - 1);
+        }
+
+        function reset() {
+          setCount(0);
+        }
+
+        return (
+          <>
+            <BtnCounter
+              tButton="-"
+              operator={min}
+              condition={count < 0 || count > 10 ? true : false}
+            />
+            <span>
+              &nbsp; {count < 0 || count > 10 ? "done!" : count}&nbsp;{" "}
+            </span>
+            <BtnCounter
+              tButton="+"
+              operator={add}
+              condition={count < 0 || count > 10 ? true : false}
+            />
+            <br />
+            <br />
+            <BtnCounter
+              tButton="Reset"
+              operator={reset}
+              condition={count == 0 ? true : false}
+            />
+          </>
+        );
+      }
+
+      function HomePage() {
+        const students = ["Sandhika", "Doddy", "Erik"];
+        const [likes, setLikes] = React.useState(0);
+
+        function handleClick() {
+          setLikes(likes + 1);
+        }
+        return (
+          <>
+            <Header name="Pa Dhika" />
+            <ul>
+              {students.map((student) => {
+                return <li key={student}>{student}</li>;
+              })}
+            </ul>
+            <button onClick={handleClick}>Like ({likes})</button>
+            <br />
+            <br />
+            <Counter />
+          </>
+        );
+      }
+
+      root.render(<HomePage />);
+    </script>
+  </body>
+</html>
