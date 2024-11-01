@@ -1,0 +1,40 @@
+* {
+  padding: 0;
+  font-family: sans-serif;
+}
+
+body {
+  margin: 10px;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 120px;
+}
+
+.square {
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.game {
+  display: flex;
+  gap: 20px;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.game-board {
+  border: 1px solid black;
+}
+
+.game-info {
+  border: 1px solid black;
+  gap: 10px;
+}
