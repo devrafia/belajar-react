@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
 export default function App() {
   const [list, setList] = useState([]);
-  const [countCheck, setCountCheck] = useState(0);
+  const c = list.filter((item) => item.checked == true).length;
+  const [countCheck, setCountCheck] = useState(c);
 
   function handleAddItem(newItem) {
     const newList = [...list, newItem];
@@ -21,10 +23,17 @@ export default function App() {
     setCountCheck(0);
   }
 
+  function handleToogle(id, checked) {
+    const newList = list.map((item) =>
+      item.id == id ? { ...item, checked: !item.checked } : item
+    );
+    setList(newList);
+    handleCountCheck(checked);
+  }
+
   function handleCountCheck(checked) {
     setCountCheck(checked ? countCheck + 1 : countCheck - 1);
   }
-  console.log(countCheck);
 
   return (
     <div className="app">
@@ -34,6 +43,7 @@ export default function App() {
         list={list}
         onDeleteItem={handleDeleteItem}
         onClearitem={handleClearItem}
+        onToogle={handleToogle}
         onCountCheck={handleCountCheck}
       />
       <Footer list={list} countCheck={countCheck} />
@@ -52,7 +62,6 @@ function Form({ onAddItem }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!name) return;
-
     const newItem = {
       id: Date.now(),
       name,
@@ -88,20 +97,38 @@ function Form({ onAddItem }) {
   );
 }
 
-function List({ list, onDeleteItem, onClearitem, onCountCheck }) {
+function List({ list, onDeleteItem, onClearitem, onToogle, onCountCheck }) {
+  const [sortBy, setSortBy] = useState("input");
+
   function handleCLick() {
     confirm("Yakin hapus semua item?") ? onClearitem() : "";
   }
+
+  let sortedItems;
+
+  switch (sortBy) {
+    case "name":
+      sortedItems = list.slice().sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case "checked":
+      sortedItems = list.slice().sort((a, b) => a.checked - b.checked);
+      break;
+    default:
+      sortedItems = list;
+      break;
+  }
+
   return (
     <>
       <div className="list">
         <ul>
-          {list.map((item) => {
+          {sortedItems.map((item) => {
             return (
               <Item
                 item={item}
                 key={item.id}
                 onDeleteItem={onDeleteItem}
+                onToogle={onToogle}
                 onCountCheck={onCountCheck}
               />
             );
@@ -109,7 +136,7 @@ function List({ list, onDeleteItem, onClearitem, onCountCheck }) {
         </ul>
       </div>
       <div className="actions">
-        <select>
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
           <option value="input">Urutkan berdasarkan urutan input</option>
           <option value="name">Urutkan berdasarkan nama barang</option>
           <option value="checked">Urutkan berdasarkan ceklis</option>
@@ -120,18 +147,14 @@ function List({ list, onDeleteItem, onClearitem, onCountCheck }) {
   );
 }
 
-function Item({ item, onDeleteItem, onCountCheck }) {
-  const [isChecked, setIsChecked] = useState(false);
-
-  function handleChange(e) {
-    const newChecked = !isChecked;
-    item.checked = newChecked;
-    setIsChecked(newChecked);
-    onCountCheck(newChecked);
-  }
+function Item({ item, onDeleteItem, onToogle }) {
   return (
     <li key={item.id}>
-      <input type="checkbox" checked={isChecked} onChange={handleChange} />
+      <input
+        type="checkbox"
+        checked={item.checked}
+        onChange={(e) => onToogle(item.id, e.target.checked)}
+      />
       <span style={{ textDecoration: item.checked ? "line-through" : "" }}>
         {item.quantity} {item.name}
       </span>
@@ -143,12 +166,14 @@ function Item({ item, onDeleteItem, onCountCheck }) {
 }
 
 function Footer({ list, countCheck }) {
+  if (list.length == 0)
+    return <footer className="stats">Daftar belanjaan masih kosong!</footer>;
   const itemTotal = list.length;
-  const itemPercentage = Math.floor((countCheck / itemTotal) * 100);
+  const itemPercentage = Math.round((countCheck / itemTotal) * 100);
   return (
     <footer className="stats">
       Ada {itemTotal} barang di daftar belanjaan, {countCheck} barang sudah
-      dibeli ({itemPercentage ? itemPercentage : 0} %)
+      dibeli ({itemPercentage} %)
     </footer>
   );
 }
