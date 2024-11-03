@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import "./App.css";
+import { useEffect } from "react";
 
 const animesData = [
   {
@@ -42,8 +43,26 @@ const animesData = [
 ];
 
 export default function App() {
-  const [animes, setAnimes] = useState(animesData);
-  // animesData.filter((anime) => anime.title.toLowerCase().includes("naruto"))
+  const [animes, setAnimes] = useState([]);
+
+  async function getAnimes() {
+    const res = await fetch("https://api.jikan.moe/v4/anime");
+    const json = await res.json();
+    const result = json.data.map((res) => {
+      return {
+        mal_id: res.mal_id,
+        title: res.title,
+        year: res.year,
+        image: res.images.jpg.image_url,
+        score: res.score,
+        synopsis: res.synopsis,
+      };
+    });
+    setAnimes(result);
+  }
+  useEffect(() => {
+    getAnimes();
+  }, []);
 
   return (
     <>
@@ -106,7 +125,13 @@ function NumResult({ animes }) {
 }
 
 function Main({ animes }) {
-  const [selectedAnime, setSelectedAnime] = useState(animes[0]);
+  const [selectedAnime, setSelectedAnime] = useState(null);
+
+  useEffect(() => {
+    if (animes.length > 0) {
+      setSelectedAnime(animes[0]);
+    }
+  }, [animes]);
 
   return (
     <main className="main">
@@ -184,6 +209,7 @@ function DetailBox({ selectedAnime }) {
 }
 
 function AnimeDetail({ selectedAnime }) {
+  if (!selectedAnime) return;
   return (
     <div className="details">
       <header>
