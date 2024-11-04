@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.app {
+  width: 100vw;
+  min-height: 100vh;
+  background: #ced8ff;
+  transition: 0.5s;
+}
+
+.app.dark {
+  background: #222;
+  color: white;
+}
+
+.dark .navBar {
+  background: black;
+}
+
+.navBar {
+  display: flex;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  transition: 0.3s;
+}
+
+.navBar .logo {
+  cursor: pointer;
+  margin-left: 2rem;
+}
+
+.navBar .navLinks {
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: 2rem;
+}
+
+.navBar .navLinks li {
+  display: inline-block;
+  margin: 1rem 1.2rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navBar .themes {
+  border: 1px solid black;
+  margin-right: 2rem;
+}
+
+.navBar .themes img {
+  height: 3.2rem;
+  cursor: pointer;
+}
