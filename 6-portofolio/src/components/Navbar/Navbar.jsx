@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+
 import moon from "../../assets/logo/moon.png";
 import sun from "../../assets/logo/sun.png";
 

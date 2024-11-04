@@ -1,13 +1,17 @@
+@import url("https://fonts.cdnfonts.com/css/blanka");
+
 * {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "nidus sans", sans-serif;
+  box-sizing: border-box;
 }
 
 .app {
   width: 100vw;
   min-height: 100vh;
   background: #ced8ff;
+  color: #001670;
   transition: 0.5s;
 }
 
@@ -16,16 +20,19 @@
   color: white;
 }
 
+/* Navbar Section */
+
 .dark .navBar {
   background: black;
 }
 
 .navBar {
   display: flex;
-  border: 1px solid black;
   align-items: center;
   justify-content: space-between;
   background: white;
+  height: 15vh;
+  font-size: 1.6rem;
   transition: 0.3s;
 }
 
@@ -35,7 +42,6 @@
 }
 
 .navBar .navLinks {
-  border: 1px solid black;
   margin-left: auto;
   margin-right: 2rem;
 }
@@ -48,11 +54,83 @@
 }
 
 .navBar .themes {
-  border: 1px solid black;
   margin-right: 2rem;
 }
 
 .navBar .themes img {
   height: 3.2rem;
   cursor: pointer;
+}
+
+/* Main Section */
+
+.main {
+  padding: 0px 20px 0px 30px;
+  font-size: 1.6rem;
+  height: 85vh;
+}
+
+.main .row {
+  display: flex;
+  height: 100%;
+}
+
+.main .row .intro-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.intro-section .welcome-heading {
+  font-size: 1.3rem;
+  width: fit-content;
+  border: 2px solid;
+  padding: 13px;
+  background: radial-gradient(
+    circle,
+    rgba(148, 187, 233, 1) 10%,
+    rgb(130, 230, 255) 100%
+  );
+}
+.dark .intro-section .welcome-heading {
+  border: 2px solid rgb(0, 179, 224);
+  background: radial-gradient(circle, rgb(118, 118, 118) 0%, rgb(0, 0, 0) 100%);
+}
+
+.intro-section .name {
+  font-size: 5rem;
+  color: rgb(0, 179, 224);
+}
+
+.intro-section .profile-description {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.main .row .img-section {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.main .row .img-section img {
+  height: 100%;
+  filter: drop-shadow(-20px 5px 20px #001670);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.main .row .img-section img:hover {
+  height: 100%;
+  filter: drop-shadow(-20px 5px 5px #001670);
+}
+
+.dark .main .row .img-section img {
+  filter: drop-shadow(-20px 5px 20px #ffffff);
+}
+
+.dark .main .row .img-section img:hover {
+  height: 100%;
+  filter: drop-shadow(-20px 5px 5px #cacaca);
 }

@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import { useState } from "react";
+import L from "./assets/images/L.png";
 import Navbar from "./components/Navbar/Navbar";
 
 export default function App() {
@@ -41,7 +43,31 @@ export default function App() {
   return (
     <div className={`app ${theme}`}>
       <Navbar theme={theme} setTheme={setTheme} />
-      <h1>{letter}</h1>
+      <Main letter={letter} />
     </div>
+  );
+}
+
+function Main({ letter }) {
+  return (
+    <section className="main">
+      <div className="row">
+        <div className="intro-section">
+          <h3 className="welcome-heading">Welcome to my Portofolio</h3>
+          <h1 className="name-intro">
+            Hello i&lsquo;m <span className="name">{letter}</span>
+          </h1>
+          <h2 className="skill">Web Developer</h2>
+          <p className="profile-description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
+            quisquam recusandae animi sapiente! Officia magnam, pariatur quo
+            placeat dolorem reprehenderit.
+          </p>
+        </div>
+        <div className="img-section">
+          <img src={L} alt="" />
+        </div>
+      </div>
+    </section>
   );
 }
