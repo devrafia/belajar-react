@@ -3,19 +3,25 @@
 import moon from "../../assets/logo/moon.png";
 import sun from "../../assets/logo/sun.png";
 
-export default function Navbar({ theme, setTheme }) {
+export default function Navbar({ theme, setTheme, scroll }) {
   function handleToggle() {
     setTheme(theme == "light" ? "dark" : "light");
   }
   return (
-    <nav className="navBar">
+    <nav className={`navBar ${scroll}`}>
       <div className="logo">
         <h1>LOGO</h1>
       </div>
       <ul className="navLinks">
-        <li className="link">Home</li>
-        <li className="link">About</li>
-        <li className="link">Contact</li>
+        <li className="link">
+          <a href="#top">Home</a>
+        </li>
+        <li className="link">
+          <a href="#about">About</a>
+        </li>
+        <li>
+          <a href="#skills">SKILLS</a>
+        </li>
         <li className="link">Projects</li>
       </ul>
       <div className="themes">

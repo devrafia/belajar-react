@@ -1,5 +1,3 @@
-@import url("https://fonts.cdnfonts.com/css/blanka");
-
 * {
   margin: 0;
   padding: 0;
@@ -8,7 +6,8 @@
 }
 
 .app {
-  width: 100vw;
+  max-width: 100%;
+  width: 100%;
   min-height: 100vh;
   background: #ced8ff;
   color: #001670;
@@ -23,17 +22,28 @@
 /* Navbar Section */
 
 .dark .navBar {
-  background: black;
+  background-color: transparent;
 }
 
 .navBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: white;
+  background-color: transparent;
   height: 15vh;
   font-size: 1.6rem;
-  transition: 0.3s;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  transition: 0.2s;
+}
+
+.navBar.scrolled {
+  background-color: white;
+}
+
+.dark .navBar.scrolled {
+  background-color: black;
 }
 
 .navBar .logo {
@@ -68,6 +78,24 @@
   padding: 0px 20px 0px 30px;
   font-size: 1.6rem;
   height: 85vh;
+  z-index: 1;
+  position: relative;
+}
+
+.main::after {
+  content: "";
+  position: absolute; /* Memposisikan bayangan secara absolut */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 11rem; /* Tinggi bayangan */
+  background: linear-gradient(
+    to top,
+    rgba(0, 22, 112, 1),
+    rgba(0, 0, 0, 0)
+  ); /* Linear gradient shadow */
+  z-index: 1;
+  pointer-events: none;
 }
 
 .main .row {
@@ -75,6 +103,18 @@
   height: 100%;
 }
 
+/* Banner Section */
+.main .row .red {
+  position: absolute;
+  border: 1px solid black;
+  width: 100%;
+  height: 12rem;
+  background-color: black;
+  left: 0;
+  bottom: 1rem;
+  z-index: -1;
+  clip-path: polygon(0 0, 50% 50%, 100% 100%, 0 100%);
+}
 .main .row .intro-section {
   display: flex;
   flex-direction: column;
@@ -87,15 +127,25 @@
   width: fit-content;
   border: 2px solid;
   padding: 13px;
-  background: radial-gradient(
-    circle,
-    rgba(148, 187, 233, 1) 10%,
-    rgb(130, 230, 255) 100%
+  background-image: linear-gradient(
+    to top,
+    #f9f9f9,
+    #f1f0fa,
+    #e7e8fc,
+    #dbe0fd,
+    #ced8ff
   );
 }
 .dark .intro-section .welcome-heading {
   border: 2px solid rgb(0, 179, 224);
-  background: radial-gradient(circle, rgb(118, 118, 118) 0%, rgb(0, 0, 0) 100%);
+  background-image: linear-gradient(
+    to top,
+    #002d70,
+    #132353,
+    #161a38,
+    #121020,
+    #020202
+  );
 }
 
 .intro-section .name {
@@ -116,21 +166,166 @@
 
 .main .row .img-section img {
   height: 100%;
-  filter: drop-shadow(-20px 5px 20px #001670);
+  filter: drop-shadow(-20px -21px 20px #001670);
   cursor: pointer;
   transition: 0.5s;
 }
 
 .main .row .img-section img:hover {
-  height: 100%;
-  filter: drop-shadow(-20px 5px 5px #001670);
+  transform: scale(1.1);
+  transform-origin: center bottom;
+  filter: drop-shadow(-20px -5px 5px #001670);
 }
 
 .dark .main .row .img-section img {
-  filter: drop-shadow(-20px 5px 20px #ffffff);
+  filter: drop-shadow(-20px -21px 10px #ffffff);
 }
 
 .dark .main .row .img-section img:hover {
   height: 100%;
-  filter: drop-shadow(-20px 5px 5px #cacaca);
+  filter: drop-shadow(-20px -5px 5px #cacaca);
+}
+
+/* Swiper JS */
+.swiper {
+  border: 1px solid black;
+  width: 50%;
+  height: 300px;
+}
+
+/* About Section */
+
+.about {
+  position: relative;
+  background-color: rgba(0, 22, 112);
+  color: white;
+  z-index: 2;
+  padding: 28vh 20px 20vh 30px;
+}
+
+.about .about-header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.about .about-header h1 {
+  font-size: 2.4rem;
+  text-decoration: underline;
+}
+
+.about .about-header h3 {
+  color: #00b3e0;
+  mix-blend-mode: difference;
+  margin-top: 1rem;
+}
+.about .about-description {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 2rem;
+  padding: 0 4rem;
+}
+
+.about .about-description p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.about::after {
+  content: "";
+  position: absolute; /* Memposisikan bayangan secara absolut */
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 9rem; /* Tinggi bayangan */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 22, 112, 1),
+    rgba(255, 215, 227, 0)
+  ); /* Linear gradient shadow */
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* SKILLS SECTION */
+
+.skills {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1;
+  padding: 22vh 20px 20vh 30px;
+  height: 1000px;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.skills .skills-header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.skills .skills-header h1 {
+  font-size: 2.4rem;
+  text-decoration: underline;
+}
+
+.skills .skills-list {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 5px;
+  width: 75%;
+  padding: 20px;
+  flex-wrap: wrap;
+
+  /* From https://css.glass */
+  background: rgba(0, 179, 224, 0.29);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 179, 224, 0.48);
+}
+
+.skills .skills-list .skill-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  transition: 0.3s;
+}
+
+.skills .skills-list .skill-box:hover {
+  background-color: #001670;
+  color: white;
+}
+
+.dark .skills .skills-list .skill-box {
+  background-color: #001670;
+}
+
+.dark .skills .skills-list .skill-box:hover {
+  background-color: white;
+  color: #001670;
+}
+
+.skills .skills-list .skill-box img {
+  height: 150px;
+  width: 150px;
+}
+
+.skills .skills-list .skill-box .skill-text {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
