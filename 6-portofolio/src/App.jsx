@@ -1,7 +1,17 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
 import { useState } from "react";
+
+// framer-motion
+import { motion } from "framer-motion";
+// variants
+import { fadeIn } from "./variants";
+
+// images
 import L from "./assets/images/L.png";
+import github from "./assets/logo/github.png";
+import linkedin from "./assets/logo/linkedin.png";
+import instagram from "./assets/logo/instagram.png";
 import Navbar from "./components/Navbar/Navbar";
 
 // core version + navigation, pagination modules:
@@ -51,15 +61,15 @@ export default function App() {
   // Swiper
   useEffect(() => {
     new Swiper(".swiper", {
-      modules: [Navigation, Pagination],
       // Optional parameters
       direction: "horizontal",
       loop: true,
+      spaceBetween: 5,
 
       // If we need pagination
       pagination: {
         el: ".swiper-pagination",
-        type: "fraction",
+        clickable: true,
       },
 
       // Navigation arrows
@@ -67,8 +77,18 @@ export default function App() {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
-
-      // And if we need scrollbar
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+        },
+        620: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      },
+      modules: [Navigation, Pagination],
     });
   }, []);
 
@@ -105,33 +125,58 @@ function Main({ letter }) {
     <>
       <section className="main">
         <div className="row">
-          <div className="intro-section">
+          <motion.div
+            variants={fadeIn("right", 0.1)}
+            initial="hidden"
+            whileInView={"show"}
+            viewport={{ once: false, amount: 0.7 }}
+            className="intro-section"
+          >
             <h3 className="welcome-heading">Welcome to my Portofolio</h3>
             <h1 className="name-intro">
               Hello i&lsquo;m <span className="name">{letter}</span>
             </h1>
             <h2 className="skill">Software Engineer</h2>
             <p className="profile-description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              quisquam recusandae animi sapiente! Officia magnam, pariatur quo
-              placeat dolorem reprehenderit.
+              Full Stack Developer wannabe yang siap memberikan solusi kreatif
+              untuk kebutuhan digital. Mengutamakan kolaborasi dan selalu
+              terbuka untuk tantangan baru dalam membangun aplikasi dengan
+              performa tinggi.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="img-section">
+          <motion.div
+            variants={fadeIn("up", 0.1)}
+            initial="hidden"
+            whileInView={"show"}
+            viewport={{ once: false, amount: 0.5 }}
+            className="img-section hideOnMobile"
+          >
             <img src={L} alt="" />
-          </div>
+          </motion.div>
         </div>
       </section>
       <section className="about" id="about">
-        <div className="about-header">
+        <motion.div
+          variants={fadeIn("left", 0.1)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.7 }}
+          className="about-header"
+        >
           <h1>About Me</h1>
           <h3>
             &quot; Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Suscipit, consectetur? &quot;
           </h3>
-        </div>
-        <div className="about-description">
+        </motion.div>
+        <motion.div
+          variants={fadeIn("right", 0.1)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.1 }}
+          className="about-description"
+        >
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
             iusto ratione quo, rem, eligendi accusantium asperiores harum minima
@@ -146,13 +191,25 @@ function Main({ letter }) {
             quod at doloremque, amet excepturi fugiat quia temporibus debitis
             repellat.
           </p>
-        </div>
+        </motion.div>
       </section>
       <section className="skills" id="skills">
-        <div className="skills-header">
+        <motion.div
+          variants={fadeIn("left", 0.1)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.7 }}
+          className="skills-header"
+        >
           <h1>SKILLS</h1>
-        </div>
-        <div className="skills-list">
+        </motion.div>
+        <motion.div
+          variants={fadeIn("left", 0.1)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.2 }}
+          className="skills-list"
+        >
           <div className="skill-box">
             <img src={L} alt="" />
             <span className="skill-text">Javascript</span>
@@ -184,6 +241,61 @@ function Main({ letter }) {
           <div className="skill-box">
             <img src={L} alt="" />
             <span className="skill-text">Javascript</span>
+          </div>
+        </motion.div>
+      </section>
+      <section className="projects" id="projects">
+        <motion.div
+          variants={fadeIn("down", 0.1)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.7 }}
+          className="projects-header"
+        >
+          <h1>PROJECTS</h1>
+        </motion.div>
+        <motion.div
+          variants={fadeIn("up", 0.1)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.1 }}
+          className="swiper"
+        >
+          <div className="projects-list swiper-wrapper">
+            <div className="project swiper-slide">
+              <img src={L} alt="" />
+              <h3>PROJECT 1</h3>
+            </div>
+            <div className="project swiper-slide">
+              <img src={L} alt="" />
+              <h3>PROJECT 2</h3>
+            </div>
+            <div className="project swiper-slide">
+              <img src={L} alt="" />
+              <h3>PROJECT 3</h3>
+            </div>
+            <div className="project swiper-slide">
+              <img src={L} alt="" />
+              <h3>PROJECT 4</h3>
+            </div>
+            <div className="project swiper-slide">
+              <img src={L} alt="" />
+              <h3>PROJECT 5</h3>
+            </div>
+          </div>
+          <div className="swiper-pagination"></div>
+
+          <div className="swiper-button-prev"></div>
+          <div className="swiper-button-next"></div>
+        </motion.div>
+      </section>
+      <section className="footer">
+        <div className="container">
+          <h1>Thanks for scrolling</h1>
+          <div className="logo">
+            <img src={github} alt="" />
+            <img src={linkedin} alt="" />
+            <img src={instagram} alt="" />
           </div>
         </div>
       </section>
